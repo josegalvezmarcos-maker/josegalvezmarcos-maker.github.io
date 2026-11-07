@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate, useSearch } from '@tanstack/react-router'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -931,7 +931,9 @@ function SectorIntro({ sector }: { sector: Sector }) {
 
 export function SectorCases() {
   const { tr } = useLanguage()
-  const [active, setActive] = useState<SectorId>('frio')
+  const search = useSearch({ from: '/app/casos' })
+  const [chosen, setActive] = useState<SectorId | null>(null)
+  const active: SectorId = chosen ?? search.caso ?? 'frio'
   const sector = SECTORS.find((s) => s.id === active) ?? SECTORS[0]
   const Scenario = SCENARIOS[active]
 

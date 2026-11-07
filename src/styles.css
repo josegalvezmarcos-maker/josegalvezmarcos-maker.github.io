@@ -244,3 +244,45 @@ input[type='range'].range:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 4px;
 }
+
+/* Templates print on their own, without the app around them. */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .print-sheet,
+  .print-sheet * {
+    visibility: visible;
+  }
+  .print-sheet {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+.leaflet-container {
+  font-family: var(--font-body);
+  background: #0e0f11;
+}
+.osm-dark {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9)
+    saturate(0.3);
+}
+.leaflet-control-attribution {
+  background: rgb(10 11 13 / 0.8) !important;
+  color: var(--muted-foreground) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--foreground) !important;
+}

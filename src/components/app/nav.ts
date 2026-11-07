@@ -1,6 +1,10 @@
 import {
   BookOpen,
   ChartColumn,
+  Euro,
+  FileText,
+  Gamepad2,
+  Map as MapIcon,
   MapPinned,
   ClipboardList,
   Compass,
@@ -21,6 +25,10 @@ export interface NavItem {
     | '/app'
     | '/app/casos'
     | '/app/kpis'
+    | '/app/simulador'
+    | '/app/mapa'
+    | '/app/coste'
+    | '/app/plantillas'
     | '/app/turno'
     | '/app/rutas'
     | '/app/slotting'
@@ -46,6 +54,26 @@ export const NAV: NavItem[] = [
     blurb: {
       es: 'Frío, e-commerce, supermercados, automoción y multicliente: escenarios jugables.',
       en: 'Cold chain, e-commerce, supermarkets, automotive and multi-client: playable scenarios.',
+    },
+  },
+  {
+    to: '/app/simulador',
+    icon: Gamepad2,
+    group: 'north',
+    label: { es: 'Tu turno (simulador)', en: 'Your shift (simulator)' },
+    blurb: {
+      es: 'Ocho horas, ocho decisiones reales de planta y su efecto en los KPIs.',
+      en: 'Eight hours, eight real floor decisions and their effect on KPIs.',
+    },
+  },
+  {
+    to: '/app/mapa',
+    icon: MapIcon,
+    group: 'north',
+    label: { es: 'Mapa del norte', en: 'Northern map' },
+    blurb: {
+      es: 'Puertos, zonas logísticas y operaciones de referencia, con su fuente.',
+      en: 'Ports, logistics zones and reference operations, with sources.',
     },
   },
   {
@@ -106,6 +134,26 @@ export const NAV: NavItem[] = [
     blurb: {
       es: 'Analiza la rotación y propone qué referencias acercar primero.',
       en: 'Analyses turnover and proposes which SKUs to move closer first.',
+    },
+  },
+  {
+    to: '/app/coste',
+    icon: Euro,
+    group: 'improve',
+    label: { es: 'Coste de la ineficiencia', en: 'Cost of inefficiency' },
+    blurb: {
+      es: 'Metros, errores y mermas convertidos en euros al año.',
+      en: 'Metres, errors and write-offs turned into euros a year.',
+    },
+  },
+  {
+    to: '/app/plantillas',
+    icon: FileText,
+    group: 'improve',
+    label: { es: 'Plantillas', en: 'Templates' },
+    blurb: {
+      es: 'Arranque de turno, auditoría 5S, gemba walk e incidencias, listas para imprimir.',
+      en: 'Shift start, 5S audit, gemba walk and incidents, ready to print.',
     },
   },
   {

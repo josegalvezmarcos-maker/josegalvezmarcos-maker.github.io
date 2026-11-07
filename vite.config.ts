@@ -14,6 +14,10 @@ const config = defineConfig({
         { path: '/fuentes' },
         ...[
           'casos',
+          'simulador',
+          'mapa',
+          'coste',
+          'plantillas',
           'kpis',
           'turno',
           'rutas',

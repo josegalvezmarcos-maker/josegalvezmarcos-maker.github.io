@@ -16,12 +16,16 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppBlogRouteImport } from './routes/app.blog'
 import { Route as AppCasosRouteImport } from './routes/app.casos'
 import { Route as AppCortesRouteImport } from './routes/app.cortes'
+import { Route as AppCosteRouteImport } from './routes/app.coste'
 import { Route as AppIaRouteImport } from './routes/app.ia'
 import { Route as AppIdeasRouteImport } from './routes/app.ideas'
 import { Route as AppKpisRouteImport } from './routes/app.kpis'
+import { Route as AppMapaRouteImport } from './routes/app.mapa'
+import { Route as AppPlantillasRouteImport } from './routes/app.plantillas'
 import { Route as AppRelevoRouteImport } from './routes/app.relevo'
 import { Route as AppRutasRouteImport } from './routes/app.rutas'
 import { Route as AppSectoresRouteImport } from './routes/app.sectores'
+import { Route as AppSimuladorRouteImport } from './routes/app.simulador'
 import { Route as AppSlottingRouteImport } from './routes/app.slotting'
 import { Route as AppTurnoRouteImport } from './routes/app.turno'
 
@@ -60,6 +64,11 @@ const AppCortesRoute = AppCortesRouteImport.update({
   path: '/cortes',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCosteRoute = AppCosteRouteImport.update({
+  id: '/coste',
+  path: '/coste',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppIaRoute = AppIaRouteImport.update({
   id: '/ia',
   path: '/ia',
@@ -75,6 +84,16 @@ const AppKpisRoute = AppKpisRouteImport.update({
   path: '/kpis',
   getParentRoute: () => AppRoute,
 } as any)
+const AppMapaRoute = AppMapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPlantillasRoute = AppPlantillasRouteImport.update({
+  id: '/plantillas',
+  path: '/plantillas',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppRelevoRoute = AppRelevoRouteImport.update({
   id: '/relevo',
   path: '/relevo',
@@ -88,6 +107,11 @@ const AppRutasRoute = AppRutasRouteImport.update({
 const AppSectoresRoute = AppSectoresRouteImport.update({
   id: '/sectores',
   path: '/sectores',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSimuladorRoute = AppSimuladorRouteImport.update({
+  id: '/simulador',
+  path: '/simulador',
   getParentRoute: () => AppRoute,
 } as any)
 const AppSlottingRoute = AppSlottingRouteImport.update({
@@ -108,12 +132,16 @@ export interface FileRoutesByFullPath {
   '/app/blog': typeof AppBlogRoute
   '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
+  '/app/coste': typeof AppCosteRoute
   '/app/ia': typeof AppIaRoute
   '/app/ideas': typeof AppIdeasRoute
   '/app/kpis': typeof AppKpisRoute
+  '/app/mapa': typeof AppMapaRoute
+  '/app/plantillas': typeof AppPlantillasRoute
   '/app/relevo': typeof AppRelevoRoute
   '/app/rutas': typeof AppRutasRoute
   '/app/sectores': typeof AppSectoresRoute
+  '/app/simulador': typeof AppSimuladorRoute
   '/app/slotting': typeof AppSlottingRoute
   '/app/turno': typeof AppTurnoRoute
   '/app/': typeof AppIndexRoute
@@ -124,12 +152,16 @@ export interface FileRoutesByTo {
   '/app/blog': typeof AppBlogRoute
   '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
+  '/app/coste': typeof AppCosteRoute
   '/app/ia': typeof AppIaRoute
   '/app/ideas': typeof AppIdeasRoute
   '/app/kpis': typeof AppKpisRoute
+  '/app/mapa': typeof AppMapaRoute
+  '/app/plantillas': typeof AppPlantillasRoute
   '/app/relevo': typeof AppRelevoRoute
   '/app/rutas': typeof AppRutasRoute
   '/app/sectores': typeof AppSectoresRoute
+  '/app/simulador': typeof AppSimuladorRoute
   '/app/slotting': typeof AppSlottingRoute
   '/app/turno': typeof AppTurnoRoute
   '/app': typeof AppIndexRoute
@@ -142,12 +174,16 @@ export interface FileRoutesById {
   '/app/blog': typeof AppBlogRoute
   '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
+  '/app/coste': typeof AppCosteRoute
   '/app/ia': typeof AppIaRoute
   '/app/ideas': typeof AppIdeasRoute
   '/app/kpis': typeof AppKpisRoute
+  '/app/mapa': typeof AppMapaRoute
+  '/app/plantillas': typeof AppPlantillasRoute
   '/app/relevo': typeof AppRelevoRoute
   '/app/rutas': typeof AppRutasRoute
   '/app/sectores': typeof AppSectoresRoute
+  '/app/simulador': typeof AppSimuladorRoute
   '/app/slotting': typeof AppSlottingRoute
   '/app/turno': typeof AppTurnoRoute
   '/app/': typeof AppIndexRoute
@@ -161,12 +197,16 @@ export interface FileRouteTypes {
     | '/app/blog'
     | '/app/casos'
     | '/app/cortes'
+    | '/app/coste'
     | '/app/ia'
     | '/app/ideas'
     | '/app/kpis'
+    | '/app/mapa'
+    | '/app/plantillas'
     | '/app/relevo'
     | '/app/rutas'
     | '/app/sectores'
+    | '/app/simulador'
     | '/app/slotting'
     | '/app/turno'
     | '/app/'
@@ -177,12 +217,16 @@ export interface FileRouteTypes {
     | '/app/blog'
     | '/app/casos'
     | '/app/cortes'
+    | '/app/coste'
     | '/app/ia'
     | '/app/ideas'
     | '/app/kpis'
+    | '/app/mapa'
+    | '/app/plantillas'
     | '/app/relevo'
     | '/app/rutas'
     | '/app/sectores'
+    | '/app/simulador'
     | '/app/slotting'
     | '/app/turno'
     | '/app'
@@ -194,12 +238,16 @@ export interface FileRouteTypes {
     | '/app/blog'
     | '/app/casos'
     | '/app/cortes'
+    | '/app/coste'
     | '/app/ia'
     | '/app/ideas'
     | '/app/kpis'
+    | '/app/mapa'
+    | '/app/plantillas'
     | '/app/relevo'
     | '/app/rutas'
     | '/app/sectores'
+    | '/app/simulador'
     | '/app/slotting'
     | '/app/turno'
     | '/app/'
@@ -262,6 +310,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCortesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/coste': {
+      id: '/app/coste'
+      path: '/coste'
+      fullPath: '/app/coste'
+      preLoaderRoute: typeof AppCosteRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/ia': {
       id: '/app/ia'
       path: '/ia'
@@ -281,6 +336,20 @@ declare module '@tanstack/react-router' {
       path: '/kpis'
       fullPath: '/app/kpis'
       preLoaderRoute: typeof AppKpisRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/mapa': {
+      id: '/app/mapa'
+      path: '/mapa'
+      fullPath: '/app/mapa'
+      preLoaderRoute: typeof AppMapaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/plantillas': {
+      id: '/app/plantillas'
+      path: '/plantillas'
+      fullPath: '/app/plantillas'
+      preLoaderRoute: typeof AppPlantillasRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/relevo': {
@@ -304,6 +373,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSectoresRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/simulador': {
+      id: '/app/simulador'
+      path: '/simulador'
+      fullPath: '/app/simulador'
+      preLoaderRoute: typeof AppSimuladorRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/slotting': {
       id: '/app/slotting'
       path: '/slotting'
@@ -325,12 +401,16 @@ interface AppRouteChildren {
   AppBlogRoute: typeof AppBlogRoute
   AppCasosRoute: typeof AppCasosRoute
   AppCortesRoute: typeof AppCortesRoute
+  AppCosteRoute: typeof AppCosteRoute
   AppIaRoute: typeof AppIaRoute
   AppIdeasRoute: typeof AppIdeasRoute
   AppKpisRoute: typeof AppKpisRoute
+  AppMapaRoute: typeof AppMapaRoute
+  AppPlantillasRoute: typeof AppPlantillasRoute
   AppRelevoRoute: typeof AppRelevoRoute
   AppRutasRoute: typeof AppRutasRoute
   AppSectoresRoute: typeof AppSectoresRoute
+  AppSimuladorRoute: typeof AppSimuladorRoute
   AppSlottingRoute: typeof AppSlottingRoute
   AppTurnoRoute: typeof AppTurnoRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -340,12 +420,16 @@ const AppRouteChildren: AppRouteChildren = {
   AppBlogRoute: AppBlogRoute,
   AppCasosRoute: AppCasosRoute,
   AppCortesRoute: AppCortesRoute,
+  AppCosteRoute: AppCosteRoute,
   AppIaRoute: AppIaRoute,
   AppIdeasRoute: AppIdeasRoute,
   AppKpisRoute: AppKpisRoute,
+  AppMapaRoute: AppMapaRoute,
+  AppPlantillasRoute: AppPlantillasRoute,
   AppRelevoRoute: AppRelevoRoute,
   AppRutasRoute: AppRutasRoute,
   AppSectoresRoute: AppSectoresRoute,
+  AppSimuladorRoute: AppSimuladorRoute,
   AppSlottingRoute: AppSlottingRoute,
   AppTurnoRoute: AppTurnoRoute,
   AppIndexRoute: AppIndexRoute,
