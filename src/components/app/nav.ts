@@ -7,6 +7,7 @@ import {
   Gauge,
   Grid3x3,
   LayoutDashboard,
+  Library,
   Lightbulb,
   Route as RouteIcon,
   Sparkles,
@@ -29,6 +30,7 @@ export interface NavItem {
     | '/app/ia'
     | '/app/sectores'
     | '/app/blog'
+    | '/fuentes'
   icon: LucideIcon
   label: Localized
   blurb: Localized
@@ -147,6 +149,17 @@ export const NAV: NavItem[] = [
     },
   },
 ]
+
+NAV.push({
+  to: '/fuentes',
+  icon: Library,
+  group: 'learn',
+  label: { es: 'Fuentes', en: 'Sources' },
+  blurb: {
+    es: 'De dónde sale cada dato público y con qué licencia.',
+    en: 'Where each public figure comes from and under which licence.',
+  },
+})
 
 export const HOME_ITEM = {
   to: '/app' as const,

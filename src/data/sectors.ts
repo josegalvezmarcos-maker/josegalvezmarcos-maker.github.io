@@ -12,7 +12,14 @@ export interface Kpi {
   demo: number[]
 }
 
+export interface Fact {
+  value: string
+  label: Localized
+  source: string
+}
+
 export interface Sector {
+  facts: Fact[]
   id: SectorId
   code: string
   name: Localized
@@ -28,6 +35,32 @@ export interface Sector {
 export const SECTORS: Sector[] = [
   {
     id: 'frio',
+    facts: [
+      {
+        value: '518.774 t',
+        label: {
+          es: 'leche de vaca producida en Asturias en 2024',
+          en: 'cow’s milk produced in Asturias in 2024',
+        },
+        source: 'upa-anuario-2025',
+      },
+      {
+        value: '92 %',
+        label: {
+          es: 'se entrega a la industria láctea de la propia región',
+          en: 'goes to dairy industry within the region',
+        },
+        source: 'upa-anuario-2025',
+      },
+      {
+        value: '1.175',
+        label: {
+          es: 'ganaderos de leche al cierre de 2024 (−85)',
+          en: 'dairy farmers at the end of 2024 (−85)',
+        },
+        source: 'upa-anuario-2025',
+      },
+    ],
     code: 'N01',
     name: {
       es: 'Alimentación con frío y caducidad corta',
@@ -130,6 +163,32 @@ export const SECTORS: Sector[] = [
   },
   {
     id: 'ecom',
+    facts: [
+      {
+        value: '+1.000',
+        label: {
+          es: 'empleos directos en un centro de Siero tras su primer año',
+          en: 'direct jobs at a Siero site after its first year',
+        },
+        source: 'amazon-ovd1',
+      },
+      {
+        value: '+60',
+        label: {
+          es: 'perfiles distintos en el mismo centro',
+          en: 'distinct roles at the same site',
+        },
+        source: 'amazon-ovd1',
+      },
+      {
+        value: '24 h',
+        label: {
+          es: 'de operación desde que se abrió el turno de noche',
+          en: 'of operation since the night shift opened',
+        },
+        source: 'amazon-ovd1',
+      },
+    ],
     code: 'N02',
     name: {
       es: 'E-commerce de gran volumen',
@@ -229,6 +288,32 @@ export const SECTORS: Sector[] = [
   },
   {
     id: 'retail',
+    facts: [
+      {
+        value: '173',
+        label: {
+          es: 'tiendas del noroeste servidas desde una plataforma central asturiana',
+          en: 'north-west stores served from one Asturian platform',
+        },
+        source: 'alimerka-cimcorp',
+      },
+      {
+        value: '+120 t',
+        label: {
+          es: 'de frutas y verduras al día, seis días por semana',
+          en: 'of fresh produce a day, six days a week',
+        },
+        source: 'alimerka-cimcorp',
+      },
+      {
+        value: 'Frío −',
+        label: {
+          es: 'ampliación de congelado y flota eléctrica con carga en plataforma',
+          en: 'frozen capacity expansion and an electric fleet charging on site',
+        },
+        source: 'alimerka-frio',
+      },
+    ],
     code: 'N03',
     name: {
       es: 'Distribución regional a supermercados',
@@ -325,6 +410,24 @@ export const SECTORS: Sector[] = [
   },
   {
     id: 'jis',
+    facts: [
+      {
+        value: '+500.000',
+        label: {
+          es: 'vehículos fabricados en una sola planta gallega en 2024',
+          en: 'vehicles built at a single Galician plant in 2024',
+        },
+        source: 'stellantis-vigo-prod',
+      },
+      {
+        value: '2025–27',
+        label: {
+          es: 'plan público para reforzar a los proveedores locales',
+          en: 'public plan to strengthen local suppliers',
+        },
+        source: 'stellantis-xunta',
+      },
+    ],
     code: 'N04',
     name: {
       es: 'Proveedor de automoción en secuencia',
@@ -335,8 +438,8 @@ export const SECTORS: Sector[] = [
       en: 'Suppliers feeding an assembly plant in the exact order of the cars, often with no buffer stock.',
     },
     how: {
-      es: 'La línea manda: cada rack lleva las piezas en la secuencia de fabricación. Un fallo de material puede parar la planta, y se han visto paradas de días por falta de piezas.',
-      en: 'The line sets the pace: each rack carries parts in build sequence. A material failure can stop the plant, and multi-day stops for missing parts have happened.',
+      es: 'La línea manda: cada rack lleva las piezas en la secuencia de fabricación. Un fallo de material puede parar la planta, por eso se trabaja con márgenes de minutos.',
+      en: 'The line sets the pace: each rack carries parts in build sequence. A material failure can stop the plant, so margins are counted in minutes.',
     },
     pressure: {
       es: 'Cero paradas de línea y cero errores de secuencia.',
@@ -427,6 +530,24 @@ export const SECTORS: Sector[] = [
   },
   {
     id: 'tpl',
+    facts: [
+      {
+        value: '64.608',
+        label: {
+          es: 'empresas activas en Asturias (1 de enero de 2025)',
+          en: 'active companies in Asturias (1 January 2025)',
+        },
+        source: 'dirce-asturias',
+      },
+      {
+        value: '700.000 m²',
+        label: {
+          es: 'netos en la primera fase de la zona logística regional',
+          en: 'net in the first phase of the regional logistics zone',
+        },
+        source: 'zalia',
+      },
+    ],
     code: 'N05',
     name: {
       es: 'Operador logístico multicliente',

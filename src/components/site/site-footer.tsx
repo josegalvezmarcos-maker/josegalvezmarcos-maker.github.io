@@ -34,7 +34,13 @@ export function SiteFooter() {
               {tr({
                 es: 'Opiniones personales. No representan a ninguna empresa.',
                 en: 'Personal opinions. They do not represent any company.',
-              })}
+              })}{' '}
+              <Link
+                to="/fuentes"
+                className="underline underline-offset-2 hover:text-primary"
+              >
+                {tr({ es: 'Fuentes de los datos', en: 'Data sources' })}
+              </Link>
             </p>
           </div>
           <div className="flex items-center gap-2">

@@ -11,6 +11,7 @@ const config = defineConfig({
       prerender: { enabled: true, crawlLinks: true, failOnError: true },
       pages: [
         { path: '/' },
+        { path: '/fuentes' },
         ...[
           'casos',
           'kpis',

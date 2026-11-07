@@ -1,8 +1,15 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
-import { ArrowRight, CircleAlert, CircleCheck, Shuffle } from 'lucide-react'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CircleAlert,
+  CircleCheck,
+  Shuffle,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SECTORS, type Sector, type SectorId } from '@/data/sectors'
+import { sourceById } from '@/data/sources'
 import { seededRandom } from '@/lib/algorithms'
 import { useLanguage } from '@/lib/i18n'
 import {
@@ -829,6 +836,47 @@ const SCENARIOS: Record<SectorId, () => React.ReactNode> = {
   tpl: MultiClient,
 }
 
+function FactStrip({ sector }: { sector: Sector }) {
+  const { tr } = useLanguage()
+  return (
+    <div className="mt-5">
+      <p className="mb-2 font-data text-[10px] tracking-widest text-muted-foreground uppercase">
+        {tr({
+          es: 'Datos públicos de la región',
+          en: 'Public data from the region',
+        })}
+      </p>
+      <ul className="grid gap-2 sm:grid-cols-3">
+        {sector.facts.map((f) => {
+          const src = sourceById(f.source)
+          return (
+            <li
+              key={f.label.es}
+              className="rounded-lg border border-border bg-card p-3"
+            >
+              <p className="font-data text-lg font-bold text-primary">
+                {f.value}
+              </p>
+              <p className="mt-0.5 text-xs leading-snug">{tr(f.label)}</p>
+              {src && (
+                <a
+                  href={src.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1.5 inline-flex items-center gap-1 text-[10px] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                >
+                  {src.publisher}
+                  <ArrowUpRight className="size-3" />
+                </a>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
 function SectorIntro({ sector }: { sector: Sector }) {
   const { tr } = useLanguage()
   const { update } = useWorkspace()
@@ -847,6 +895,7 @@ function SectorIntro({ sector }: { sector: Sector }) {
           {tr({ es: 'Lo que más duele:', en: 'What hurts most:' })}{' '}
           {tr(sector.pressure)}
         </p>
+        <FactStrip sector={sector} />
       </div>
       <div className="rounded-xl border border-border bg-card p-4">
         <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
@@ -894,8 +943,8 @@ export function SectorCases() {
         </h1>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
           {tr({
-            es: 'Cinco tipos de operación habituales en Asturias, Galicia, Cantabria y León. Cada uno con cómo trabaja, qué le duele, un escenario que puedes mover y sus indicadores. Sin nombres de empresa: los modelos y datos son simplificados.',
-            en: 'Five types of operation common in Asturias, Galicia, Cantabria and León. Each with how it works, what hurts, a scenario you can play with and its indicators. No company names: models and data are simplified.',
+            es: 'Cinco tipos de operación habituales en Asturias, Galicia, Cantabria y León. Cada uno con datos públicos de la región, cómo trabaja, qué le duele, un escenario que puedes mover y sus indicadores. Los escenarios son modelos simplificados con datos de ejemplo; las cifras públicas enlazan a su fuente.',
+            en: 'Five types of operation common in Asturias, Galicia, Cantabria and León. Each with public data from the region, how it works, what hurts, a scenario you can play with and its indicators. Scenarios are simplified models with example data; public figures link to their source.',
           })}
         </p>
       </div>

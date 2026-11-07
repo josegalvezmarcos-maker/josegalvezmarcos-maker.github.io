@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as FuentesRouteImport } from './routes/fuentes'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppBlogRouteImport } from './routes/app.blog'
 import { Route as AppCasosRouteImport } from './routes/app.casos'
@@ -32,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuentesRoute = FuentesRouteImport.update({
+  id: '/fuentes',
+  path: '/fuentes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -98,6 +104,7 @@ const AppTurnoRoute = AppTurnoRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/fuentes': typeof FuentesRoute
   '/app/blog': typeof AppBlogRoute
   '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/fuentes': typeof FuentesRoute
   '/app/blog': typeof AppBlogRoute
   '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/fuentes': typeof FuentesRoute
   '/app/blog': typeof AppBlogRoute
   '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/fuentes'
     | '/app/blog'
     | '/app/casos'
     | '/app/cortes'
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/fuentes'
     | '/app/blog'
     | '/app/casos'
     | '/app/cortes'
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/fuentes'
     | '/app/blog'
     | '/app/casos'
     | '/app/cortes'
@@ -196,6 +208,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  FuentesRoute: typeof FuentesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fuentes': {
+      id: '/fuentes'
+      path: '/fuentes'
+      fullPath: '/fuentes'
+      preLoaderRoute: typeof FuentesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -336,6 +356,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  FuentesRoute: FuentesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

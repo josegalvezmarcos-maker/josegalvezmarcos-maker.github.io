@@ -27,8 +27,8 @@ export function NorthSection() {
           </div>
           <p className="max-w-md text-muted-foreground">
             {tr({
-              es: 'Las operaciones que más empleo logístico generan entre Asturias, Galicia, Cantabria y León. Cada una con su escenario jugable y sus KPIs.',
-              en: 'The operations that create most logistics jobs across Asturias, Galicia, Cantabria and León. Each with a playable scenario and its KPIs.',
+              es: 'Operaciones habituales entre Asturias, Galicia, Cantabria y León, con datos públicos de la región, un escenario jugable y sus KPIs.',
+              en: 'Common operations across Asturias, Galicia, Cantabria and León, with public regional data, a playable scenario and its KPIs.',
             })}
           </p>
         </div>
@@ -46,6 +46,14 @@ export function NorthSection() {
                 </span>
                 <span className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
                   {tr(s.pressure)}
+                </span>
+                <span className="mt-4 block border-t border-border pt-3">
+                  <span className="font-data text-xl font-bold text-primary">
+                    {s.facts[0].value}
+                  </span>
+                  <span className="mt-0.5 block text-xs text-muted-foreground">
+                    {tr(s.facts[0].label)}
+                  </span>
                 </span>
                 <span className="mt-5 flex flex-wrap gap-1">
                   {s.kpis.slice(0, 3).map((k) => (
