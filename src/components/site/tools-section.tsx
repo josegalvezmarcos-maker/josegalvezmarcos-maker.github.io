@@ -1,106 +1,86 @@
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, Calculator, HardDrive, Share2 } from 'lucide-react'
-import { GROUP_LABELS, NAV, type NavItem } from '@/components/app/nav'
+import { ArrowUpRight } from 'lucide-react'
+import { NAV } from '@/components/app/nav'
 import { useLanguage } from '@/lib/i18n'
-import { SectionHeading } from './section-heading'
+import { cn } from '@/lib/utils'
 
 export function ToolsSection() {
   const { tr } = useLanguage()
-  const groups: NavItem['group'][] = ['plan', 'improve']
-
-  const facts = [
-    {
-      icon: Calculator,
-      title: tr({
-        es: 'Cálculos que puedes comprobar',
-        en: 'Calculations you can check',
-      }),
-      text: tr({
-        es: 'Cada herramienta explica su modelo y sus límites. Son apoyo a la decisión, no sustituyen a tu WMS.',
-        en: 'Each tool explains its model and its limits. They support decisions and do not replace your WMS.',
-      }),
-    },
-    {
-      icon: HardDrive,
-      title: tr({
-        es: 'Tus datos, en tu navegador',
-        en: 'Your data, in your browser',
-      }),
-      text: tr({
-        es: 'Sin cuentas ni servidores propios. Se guarda en este dispositivo y puedes descargar una copia.',
-        en: 'No accounts or servers of our own. It is saved on this device and you can download a copy.',
-      }),
-    },
-    {
-      icon: Share2,
-      title: tr({
-        es: 'Comparte el plan con un enlace',
-        en: 'Share the plan with a link',
-      }),
-      text: tr({
-        es: 'El plan viaja dentro del propio enlace. Quien lo abre decide si lo carga.',
-        en: 'The plan travels inside the link itself. Whoever opens it decides whether to load it.',
-      }),
-    },
-  ]
+  const tools = NAV.filter((n) => n.group !== 'learn')
 
   return (
-    <section id="herramientas" className="border-t border-border/60 py-20">
+    <section
+      id="herramientas"
+      className="scroll-mt-20 border-b border-border/60 py-24"
+    >
       <div className="mx-auto max-w-content px-4 sm:px-6">
-        <SectionHeading
-          eyebrow={tr({ es: 'Espacio de trabajo', en: 'Workspace' })}
-          title={tr({
-            es: 'Pensadas para usarlas durante el turno',
-            en: 'Built to be used during the shift',
-          })}
-          description={tr({
-            es: 'Cada una ocupa toda la pantalla y parte de un artículo del blog o de un problema habitual en planta.',
-            en: 'Each one takes the full screen and starts from a blog article or a common floor problem.',
-          })}
-        />
-
-        <div className="mt-10 space-y-8">
-          {groups.map((group) => (
-            <div key={group}>
-              <h3 className="mb-3 font-data text-[11px] font-medium tracking-widest text-muted-foreground uppercase">
-                {tr(GROUP_LABELS[group])}
-              </h3>
-              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {NAV.filter((n) => n.group === group).map((item) => (
-                  <li key={item.to}>
-                    <Link
-                      to={item.to}
-                      className="group flex h-full flex-col rounded-2xl border border-border bg-card p-5 transition-colors outline-none hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
-                    >
-                      <item.icon className="size-6 text-primary" />
-                      <span className="mt-4 font-display font-semibold">
-                        {tr(item.label)}
-                      </span>
-                      <span className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">
-                        {tr(item.blurb)}
-                      </span>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                        {tr({ es: 'Abrir', en: 'Open' })}
-                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="font-data text-xs tracking-widest text-primary uppercase">
+              A03 · {tr({ es: 'Herramientas', en: 'Tools' })}
+            </p>
+            <h2 className="signage mt-5 text-4xl sm:text-6xl">
+              {tr({ es: 'Seis puestos', en: 'Six stations' })}
+              <br />
+              <span className="outline-text">
+                {tr({ es: 'de trabajo', en: 'to work at' })}
+              </span>
+            </h2>
+          </div>
+          <p className="max-w-md text-muted-foreground">
+            {tr({
+              es: 'A pantalla completa, con tus datos guardados y un enlace para compartir el plan con quien releva.',
+              en: 'Full screen, with your data saved and a link to share the plan with whoever takes over.',
+            })}
+          </p>
         </div>
 
-        <ul className="mt-12 grid gap-6 border-t border-border/60 pt-10 md:grid-cols-3">
-          {facts.map((f) => (
-            <li key={f.title} className="flex gap-3">
-              <f.icon className="mt-0.5 size-5 shrink-0 text-primary" />
-              <div>
-                <p className="font-display text-sm font-semibold">{f.title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  {f.text}
-                </p>
-              </div>
+        <ul className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+          {tools.map((item, i) => (
+            <li
+              key={item.to}
+              className={cn(i < 2 ? 'lg:col-span-3' : 'lg:col-span-2')}
+            >
+              <Link
+                to={item.to}
+                className={cn(
+                  'group relative flex h-full min-h-52 flex-col overflow-hidden rounded-xl border p-6 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none',
+                  i === 0
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-border bg-card hover:border-primary/70',
+                )}
+              >
+                <span
+                  className={cn(
+                    'font-data text-xs',
+                    i === 0 ? 'text-primary-foreground/70' : 'text-primary',
+                  )}
+                >
+                  {`T${String(i + 1).padStart(2, '0')}`}
+                </span>
+                <item.icon
+                  className={cn(
+                    'absolute top-6 right-6 size-7',
+                    i === 0
+                      ? 'text-primary-foreground'
+                      : 'text-muted-foreground group-hover:text-primary',
+                  )}
+                />
+                <span className="signage mt-auto pt-10 text-2xl">
+                  {tr(item.label)}
+                </span>
+                <span
+                  className={cn(
+                    'mt-2 max-w-sm text-sm leading-relaxed',
+                    i === 0
+                      ? 'text-primary-foreground/80'
+                      : 'text-muted-foreground',
+                  )}
+                >
+                  {tr(item.blurb)}
+                </span>
+                <ArrowUpRight className="absolute right-6 bottom-6 size-5 opacity-0 transition-opacity group-hover:opacity-100 motion-reduce:transition-none" />
+              </Link>
             </li>
           ))}
         </ul>

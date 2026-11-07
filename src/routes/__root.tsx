@@ -44,7 +44,7 @@ export const Route = createRootRoute({
         name: 'twitter:card',
         content: 'summary_large_image',
       },
-      { name: 'theme-color', content: '#0f172a' },
+      { name: 'theme-color', content: '#0a0b0d' },
     ],
     links: [
       { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
@@ -56,7 +56,7 @@ export const Route = createRootRoute({
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@500;600;700;800&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap',
       },
     ],
   }),

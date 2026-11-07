@@ -54,7 +54,7 @@ export function Dashboard() {
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="font-display text-2xl font-bold sm:text-3xl">
+          <h1 className="signage text-3xl leading-[0.95] sm:text-4xl">
             {tr({ es: 'Hoy en planta', en: 'Today on the floor' })}
           </h1>
           <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">

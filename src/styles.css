@@ -19,50 +19,50 @@ code {
 .dark {
   --font-body:
     'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-heading: 'Sora', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-heading: 'Archivo', 'IBM Plex Sans', system-ui, sans-serif;
   --data-font: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-  --content-width: 72rem;
+  --content-width: 76rem;
   --reading-width: 42rem;
-  --background: #0f172a;
-  --foreground: #e6edf7;
-  --card: #131d35;
-  --card-foreground: #e6edf7;
-  --popover: #131d35;
-  --popover-foreground: #e6edf7;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #1b2742;
-  --secondary-foreground: #e6edf7;
-  --muted: #1b2742;
-  --muted-foreground: #94a3b8;
-  --accent: #1e2d4d;
-  --accent-foreground: #e6edf7;
+  --background: #0a0b0d;
+  --foreground: #f2f0ea;
+  --card: #121418;
+  --card-foreground: #f2f0ea;
+  --popover: #16191e;
+  --popover-foreground: #f2f0ea;
+  --primary: #ffd400;
+  --primary-foreground: #0a0b0d;
+  --secondary: #1b1e24;
+  --secondary-foreground: #f2f0ea;
+  --muted: #1b1e24;
+  --muted-foreground: #9ea3ad;
+  --accent: #20242b;
+  --accent-foreground: #f2f0ea;
   --destructive: #ef4444;
   --destructive-foreground: #fecaca;
   --success: #22c55e;
-  --warning: #f59e0b;
-  --border: #23314f;
-  --input: #2a3a5c;
-  --ring: #3b82f6;
+  --warning: #fb923c;
+  --border: #262a31;
+  --input: #30353e;
+  --ring: #ffd400;
   --chart-actual: #3b82f6;
   --chart-plan: #ec4899;
-  --abc-a: #3b82f6;
-  --abc-b: #1f5bb5;
-  --abc-c: #2a3a5c;
+  --abc-a: #93b8fb;
+  --abc-b: #3b82f6;
+  --abc-c: #1d4ea8;
   --chart-1: #3b82f6;
   --chart-2: #22c55e;
   --chart-3: #f59e0b;
   --chart-4: #a78bfa;
   --chart-5: #f43f5e;
-  --radius: 0.75rem;
-  --sidebar: #0f172a;
-  --sidebar-foreground: #e6edf7;
-  --sidebar-primary: #3b82f6;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1b2742;
-  --sidebar-accent-foreground: #e6edf7;
-  --sidebar-border: #23314f;
-  --sidebar-ring: #3b82f6;
+  --radius: 0.625rem;
+  --sidebar: #0d0f12;
+  --sidebar-foreground: #f2f0ea;
+  --sidebar-primary: #ffd400;
+  --sidebar-primary-foreground: #0a0b0d;
+  --sidebar-accent: #1b1e24;
+  --sidebar-accent-foreground: #f2f0ea;
+  --sidebar-border: #262a31;
+  --sidebar-ring: #ffd400;
 }
 
 @theme inline {
@@ -127,7 +127,12 @@ code {
   h3,
   h4 {
     font-family: var(--font-heading);
+    font-stretch: 112%;
     letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
 }
 
@@ -137,17 +142,72 @@ code {
   }
 }
 
-/* Subtle warehouse floor grid used behind the hero */
+/* Warehouse floor grid */
 .floor-grid {
   background-image:
-    linear-gradient(to right, rgb(59 130 246 / 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(59 130 246 / 0.08) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(to right, rgb(255 212 0 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 212 0 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
   mask-image: radial-gradient(
-    ellipse 80% 70% at 50% 30%,
-    #000 40%,
+    ellipse 85% 75% at 50% 35%,
+    #000 35%,
     transparent 100%
   );
+}
+
+/* Floor-signage display type: the widest cut of Archivo */
+.signage {
+  font-family: var(--font-heading);
+  font-stretch: 125%;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--foreground);
+}
+
+.hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--primary) 0 14px,
+    #0a0b0d 14px 28px
+  );
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee,
+  .rise {
+    animation: none;
+  }
 }
 
 /* Range sliders */
@@ -171,7 +231,7 @@ input[type='range'].range::-webkit-slider-thumb {
   border-radius: 999px;
   background: #fff;
   border: 3px solid var(--primary);
-  box-shadow: 0 0 0 4px rgb(59 130 246 / 0.2);
+  box-shadow: 0 0 0 4px rgb(255 212 0 / 0.2);
 }
 input[type='range'].range::-moz-range-thumb {
   width: 14px;

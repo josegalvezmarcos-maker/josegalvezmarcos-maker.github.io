@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, BookOpen, MapPin } from 'lucide-react'
+import { ArrowDown, ArrowRight, MapPin } from 'lucide-react'
 import { WarehouseMap } from '@/components/app/tools/pick-route'
+import { NAV } from '@/components/app/nav'
 import { Button } from '@/components/ui/button'
-import { BLOG_URL, LINKEDIN_URL } from '@/data/content'
+import { LINKEDIN_URL } from '@/data/content'
 import {
   optimiseRoute,
   pathLength,
@@ -37,11 +38,10 @@ function LiveRoute() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let frame = 0
     const start = performance.now()
-    const duration = 7000
     const tick = (now: number) => {
-      const t = (now - start) / duration
+      const t = (now - start) / 7000
       setProgress(Math.min(1, t))
-      if (t >= 1.25) {
+      if (t >= 1.3) {
         setSeed((s) => s + 1)
         return
       }
@@ -52,15 +52,17 @@ function LiveRoute() {
   }, [seed])
 
   return (
-    <div className="rounded-2xl border border-border bg-card/80 p-4 shadow-[0_40px_90px_-40px_rgb(59_130_246/0.45)] backdrop-blur">
-      <div className="mb-2 flex items-center justify-between gap-3 text-xs">
+    <figure className="relative rounded-xl border border-border bg-card/90 p-4 shadow-[0_50px_120px_-50px_rgb(255_212_0/0.35)] backdrop-blur">
+      <div className="absolute -top-3 left-4 rounded-sm bg-primary px-2 py-0.5 font-data text-[10px] font-bold tracking-widest text-primary-foreground uppercase">
+        {tr({ es: 'En directo', en: 'Live' })}
+      </div>
+      <div className="mb-2 flex items-center justify-between gap-3 pt-1 text-xs">
         <span className="font-data tracking-wider text-muted-foreground uppercase">
-          {tr({
-            es: 'Ruta calculada en tu navegador',
-            en: 'Route computed in your browser',
-          })}
+          {tr({ es: 'Ruta optimizada', en: 'Optimised route' })}
         </span>
-        <span className="font-data font-bold">{Math.round(best)} m</span>
+        <span className="font-data text-base font-bold">
+          {Math.round(best)} m
+        </span>
       </div>
       <WarehouseMap
         layout={LAYOUT}
@@ -72,48 +74,93 @@ function LiveRoute() {
           en: `Example order of ${picks.length} locations walked in ${Math.round(best)} metres`,
         })}
       />
-      <p className="mt-2 text-xs text-muted-foreground">
+      <figcaption className="mt-2 text-xs text-muted-foreground">
         {tr({
-          es: `Pedido de ejemplo: ${Math.round(sShape - best)} m menos que recorriendo en S-shape.`,
-          en: `Example order: ${Math.round(sShape - best)} m less than walking S-shape.`,
+          es: `Pedido inventado, calculado ahora en tu navegador: ${Math.round(sShape - best)} m menos que en S-shape.`,
+          en: `Made-up order, computed now in your browser: ${Math.round(sShape - best)} m less than S-shape.`,
         })}
-      </p>
+      </figcaption>
+    </figure>
+  )
+}
+
+function Ticker() {
+  const { tr } = useLanguage()
+  const items = NAV.filter((n) => n.group !== 'learn').map((n) => tr(n.label))
+  const row = [...items, ...items]
+  return (
+    <div className="relative overflow-hidden border-y border-primary/40 bg-primary text-primary-foreground">
+      <div className="marquee flex w-max gap-10 py-3" aria-hidden>
+        {[...row, ...row].map((label, i) => (
+          <span
+            key={i}
+            className="signage flex items-center gap-10 text-lg whitespace-nowrap"
+          >
+            {label}
+            <span className="size-2 rotate-45 bg-primary-foreground" />
+          </span>
+        ))}
+      </div>
+      <p className="sr-only">{items.join(', ')}</p>
     </div>
   )
 }
 
 export function Hero() {
   const { tr } = useLanguage()
+  const big = 'signage rise block text-[13vw] sm:text-7xl lg:text-[5.6rem]'
   return (
-    <section id="inicio" className="relative overflow-hidden">
+    <section id="inicio" className="relative scroll-mt-20 overflow-hidden">
       <div className="floor-grid pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto grid max-w-content gap-10 px-4 pt-12 pb-16 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:pt-20 lg:pb-24">
+      <div className="grain pointer-events-none absolute inset-0" />
+      <div className="relative mx-auto grid max-w-content gap-12 px-4 pt-12 pb-16 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:pt-20 lg:pb-24">
         <div>
-          <p className="font-data text-xs font-medium tracking-widest text-primary uppercase">
-            {tr({
-              es: 'Herramientas para operaciones de almacén',
-              en: 'Tools for warehouse operations',
-            })}
+          <p className="rise flex flex-wrap items-center gap-x-3 gap-y-1 font-data text-xs tracking-widest text-muted-foreground uppercase">
+            <span className="text-primary">A00</span>
+            <span className="flex items-center gap-1">
+              <MapPin className="size-3.5" />
+              Oviedo, Asturias
+            </span>
+            <span>·</span>
+            <span>
+              {tr({ es: 'Team Leader de Pick', en: 'Pick Team Leader' })}
+            </span>
           </p>
-          <h1 className="mt-4 font-display text-4xl leading-[1.05] font-extrabold sm:text-6xl">
-            {tr({
-              es: 'Lo que un turno necesita, sin hojas de cálculo.',
-              en: 'What a shift needs, without spreadsheets.',
-            })}
+          <h1 className="mt-6">
+            <span className={big}>José Antonio</span>
+            <span
+              className={`${big} outline-text`}
+              style={{ animationDelay: '120ms' }}
+            >
+              Gálvez
+            </span>
+            <span
+              className={`${big} text-primary`}
+              style={{ animationDelay: '240ms' }}
+            >
+              Marcos
+            </span>
           </h1>
-          <p className="mt-5 max-w-reading text-lg leading-relaxed text-muted-foreground">
+          <p
+            className="rise mt-7 max-w-reading text-lg leading-relaxed text-muted-foreground"
+            style={{ animationDelay: '360ms' }}
+          >
             {tr({
-              es: 'Reparte la carga, acorta recorridos, llega a los cortes y deja el relevo hecho. Gratis, sin registro, y tus datos no salen de tu navegador.',
-              en: 'Balance the load, shorten walks, make the cutoffs and leave the handover done. Free, no sign-up, and your data stays in your browser.',
+              es: 'Dirijo un equipo de pick. Aquí cuento lo que aprendo en planta y comparto las herramientas que me habría gustado tener al empezar cada turno.',
+              en: 'I lead a pick team. Here I share what I learn on the floor and the tools I wish I had at the start of every shift.',
             })}
           </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="h-12 px-6 text-base">
+          <div
+            className="rise mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+            style={{ animationDelay: '480ms' }}
+          >
+            <Button
+              asChild
+              size="lg"
+              className="h-12 px-6 text-base font-semibold"
+            >
               <Link to="/app">
-                {tr({
-                  es: 'Abrir el espacio de trabajo',
-                  en: 'Open the workspace',
-                })}
+                {tr({ es: 'Abrir las herramientas', en: 'Open the tools' })}
                 <ArrowRight />
               </Link>
             </Button>
@@ -123,36 +170,25 @@ export function Hero() {
               variant="outline"
               className="h-12 px-6 text-base"
             >
-              <a href={BLOG_URL} target="_blank" rel="noopener noreferrer">
-                <BookOpen />
-                {tr({ es: 'Leer el blog', en: 'Read the blog' })}
+              <a href="#quien">
+                {tr({ es: 'Conóceme', en: 'About me' })}
+                <ArrowDown />
               </a>
             </Button>
-          </div>
-          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border/60 pt-5 text-sm">
-            <span className="font-display font-semibold">
-              José Antonio Gálvez Marcos
-            </span>
-            <span className="text-muted-foreground">
-              {tr({ es: 'Team Leader de Pick', en: 'Pick Team Leader' })}
-            </span>
-            <span className="flex items-center gap-1 text-muted-foreground">
-              <MapPin className="size-3.5" />
-              {tr({ es: 'Oviedo, Asturias', en: 'Oviedo, Asturias' })}
-            </span>
             <a
               href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-primary hover:underline"
+              aria-label="LinkedIn"
+              className="grid size-12 place-items-center self-start rounded-md border border-border text-muted-foreground transition-colors outline-none hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-ring sm:self-auto motion-reduce:transition-none"
             >
-              <LinkedInIcon className="size-3.5" />
-              LinkedIn
+              <LinkedInIcon className="size-5" />
             </a>
           </div>
         </div>
         <LiveRoute />
       </div>
+      <Ticker />
     </section>
   )
 }

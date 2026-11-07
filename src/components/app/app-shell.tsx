@@ -107,7 +107,7 @@ function Brand() {
       <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary font-data text-xs font-bold text-primary-foreground">
         JG
       </span>
-      <span className="leading-tight">Pie de campo</span>
+      <span className="signage text-[13px]">Pie de campo</span>
     </Link>
   )
 }
@@ -303,7 +303,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-dvh overflow-hidden bg-background">
-      <aside className="hidden w-60 shrink-0 border-r border-border/70 bg-[#0c1426] lg:block">
+      <aside className="hidden w-60 shrink-0 border-r border-border/70 bg-sidebar lg:block">
         {sidebar()}
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
@@ -320,7 +320,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <Menu />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 bg-[#0c1426] p-0">
+              <SheetContent side="left" className="w-72 bg-sidebar p-0">
                 <SheetTitle className="sr-only">
                   {tr({ es: 'Menú', en: 'Menu' })}
                 </SheetTitle>

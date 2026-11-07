@@ -226,7 +226,7 @@ export function ToolHeader({
   return (
     <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
       <div className="max-w-3xl">
-        <h1 className="font-display text-2xl font-bold sm:text-3xl">{title}</h1>
+        <h1 className="signage text-3xl leading-[0.95] sm:text-4xl">{title}</h1>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>

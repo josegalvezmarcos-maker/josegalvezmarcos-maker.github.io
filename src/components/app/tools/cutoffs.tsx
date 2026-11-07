@@ -70,8 +70,10 @@ function Timeline({
                 <div
                   title={`${w.name}: ${formatClock(w.start)}–${formatClock(w.end)}`}
                   className={cn(
-                    'absolute inset-y-1 flex items-center overflow-hidden rounded px-1.5 font-data text-[10px] font-bold text-white',
-                    late ? 'bg-destructive' : 'bg-primary',
+                    'absolute inset-y-1 flex items-center overflow-hidden rounded px-1.5 font-data text-[10px] font-bold',
+                    late
+                      ? 'bg-destructive text-white'
+                      : 'bg-primary text-primary-foreground',
                   )}
                   style={{
                     left: `${pct(w.start)}%`,
