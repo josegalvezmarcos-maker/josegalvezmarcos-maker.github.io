@@ -13,7 +13,7 @@ interface Stop {
 // Taken from his own LinkedIn profile; employers are described, not named.
 const PATH: Stop[] = [
   {
-    years: '2013–2017',
+    years: '2008–2017',
     title: {
       es: 'Encargado comercial y coordinador de inventarios',
       en: 'Commercial lead and inventory coordinator',
@@ -25,6 +25,15 @@ const PATH: Stop[] = [
     detail: {
       es: 'Equipos de inventario en moda y alimentación, y responsable regional de reposición y campañas de un fabricante de snacks.',
       en: 'Inventory teams in fashion and grocery, and regional lead for a snack maker’s replenishment and campaigns.',
+    },
+  },
+  {
+    years: '2012–2013',
+    title: { es: 'Técnico de I+D y laboratorio', en: 'R&D and lab technician' },
+    where: { es: 'Industria siderúrgica', en: 'Steel industry' },
+    detail: {
+      es: 'Análisis microbiológicos con I+D. Implantó 5S en el laboratorio y redujo un 25 % los tiempos de análisis.',
+      en: 'Microbiological analysis with R&D. Introduced 5S in the lab and cut analysis times by 25%.',
     },
   },
   {
