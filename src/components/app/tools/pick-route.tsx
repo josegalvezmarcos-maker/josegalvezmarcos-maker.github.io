@@ -53,6 +53,7 @@ export function WarehouseMap({
   path,
   progress,
   onToggle,
+  onHover,
   mapLabel,
 }: {
   layout: WarehouseLayout
@@ -60,6 +61,7 @@ export function WarehouseMap({
   path: Point[]
   progress: number
   onToggle?: (l: Location) => void
+  onHover?: (l: Location | null) => void
   mapLabel: string
 }) {
   const margin = layout.aisleGap
@@ -71,7 +73,6 @@ export function WarehouseMap({
     .map((p, i) => `${i ? 'L' : 'M'}${p.x},${toSvgY(p.y)}`)
     .join(' ')
   const walker = path.length ? pointOnPath(path, progress) : null
-  const picked = new Set(picks.map((p) => `${p.aisle}:${p.bay}`))
   const dot = Math.min(layout.bayLength * 0.42, layout.aisleGap * 0.2)
 
   return (
@@ -80,6 +81,7 @@ export function WarehouseMap({
       className="h-full max-h-[70vh] w-full"
       role="img"
       aria-label={mapLabel}
+      onMouseLeave={() => onHover?.(null)}
     >
       {Array.from({ length: layout.aisles }, (_, a) => {
         const x = (a + 1) * layout.aisleGap
@@ -120,12 +122,8 @@ export function WarehouseMap({
                   fill="transparent"
                   className="cursor-pointer hover:fill-primary/15"
                   onClick={() => onToggle({ aisle: a, bay: b })}
-                >
-                  <title>
-                    {formatLocation({ aisle: a, bay: b })}
-                    {picked.has(`${a}:${b}`) ? ' ✓' : ''}
-                  </title>
-                </rect>
+                  onMouseEnter={() => onHover?.({ aisle: a, bay: b })}
+                />
               ))}
           </g>
         )
@@ -200,6 +198,7 @@ export function PickRoute() {
   const [method, setMethod] = useState<Method>('optimal')
   const [playing, setPlaying] = useState(true)
   const [progress, setProgress] = useState(1)
+  const [hovered, setHovered] = useState<Location | null>(null)
   const raf = useRef(0)
 
   const patch = (next: Partial<typeof r>) =>
@@ -374,12 +373,19 @@ export function PickRoute() {
             path={active.path}
             progress={playing ? progress : 1}
             onToggle={toggle}
+            onHover={setHovered}
             mapLabel={tr({
               es: `Plano con ${picks.length} ubicaciones y un recorrido de ${fmt(active.length)} metros`,
               en: `Map with ${picks.length} locations and a ${fmt(active.length)} metre walk`,
             })}
           />
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+            <span
+              className="w-14 font-data font-bold text-foreground"
+              aria-live="polite"
+            >
+              {hovered ? formatLocation(hovered) : ''}
+            </span>
             <span className="flex items-center gap-1.5">
               <span className="size-2.5 rounded-full bg-foreground" />
               {tr({
