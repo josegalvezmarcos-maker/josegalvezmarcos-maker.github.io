@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearch } from '@tanstack/react-router'
 import {
   ArrowRight,
@@ -932,8 +932,13 @@ function SectorIntro({ sector }: { sector: Sector }) {
 export function SectorCases() {
   const { tr } = useLanguage()
   const search = useSearch({ from: '/app/casos' })
-  const [chosen, setActive] = useState<SectorId | null>(null)
-  const active: SectorId = chosen ?? search.caso ?? 'frio'
+  const [active, setActive] = useState<SectorId>('frio')
+  // Static pages are prerendered without the query, so the case from the URL
+  // is applied after hydration to keep server and client HTML identical.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (search.caso) setActive(search.caso)
+  }, [search.caso])
   const sector = SECTORS.find((s) => s.id === active) ?? SECTORS[0]
   const Scenario = SCENARIOS[active]
 

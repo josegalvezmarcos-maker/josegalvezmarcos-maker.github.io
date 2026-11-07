@@ -8,7 +8,7 @@ const config = defineConfig({
   plugins: [
     tailwindcss(),
     tanstackStart({
-      prerender: { enabled: true, crawlLinks: true, failOnError: true },
+      prerender: { enabled: true, crawlLinks: false, failOnError: true },
       pages: [
         { path: '/' },
         { path: '/fuentes' },
