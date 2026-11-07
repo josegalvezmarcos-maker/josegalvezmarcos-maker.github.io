@@ -1,5 +1,6 @@
 import { ArrowUpRight, Wrench } from 'lucide-react'
-import { BLOG_POSTS } from '@/data/content'
+import { Link } from '@tanstack/react-router'
+import { BLOG_POSTS, TOOL_ROUTES } from '@/data/content'
 import { useLanguage } from '@/lib/i18n'
 import { useStrings } from '@/data/ui-strings'
 import { SectionHeading } from './section-heading'
@@ -49,13 +50,13 @@ export function BlogSection() {
                     {t.readArticle}
                     <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
                   </span>
-                  <a
-                    href={`#${post.toolId}`}
+                  <Link
+                    to={TOOL_ROUTES[post.toolId]}
                     className="relative z-10 inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground motion-reduce:transition-none"
                   >
                     <Wrench className="size-3.5" />
                     {t.tool}
-                  </a>
+                  </Link>
                 </div>
               </article>
             </li>

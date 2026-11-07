@@ -9,7 +9,21 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart({
       prerender: { enabled: true, crawlLinks: true, failOnError: true },
-      pages: [{ path: '/' }],
+      pages: [
+        { path: '/' },
+        ...[
+          'turno',
+          'rutas',
+          'slotting',
+          'cortes',
+          'relevo',
+          'ideas',
+          'ia',
+          'sectores',
+          'blog',
+        ].map((tool) => ({ path: `/app/${tool}` })),
+        { path: '/app' },
+      ],
     }),
     viteReact(),
   ],

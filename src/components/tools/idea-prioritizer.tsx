@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useWorkspace } from '@/lib/workspace'
 import { ArrowDown, ArrowUp, GripVertical, RotateCcw } from 'lucide-react'
 import { INITIAL_IDEAS, type Idea } from '@/data/content'
 import { cn } from '@/lib/utils'
@@ -77,8 +78,30 @@ function Slider({
 }
 
 export function IdeaPrioritizer() {
-  const [ideas, setIdeas] = useState<Idea[]>(INITIAL_IDEAS)
-  const [autoSort, setAutoSort] = useState(true)
+  const { workspace, update } = useWorkspace()
+  const saved = workspace.ideas
+  const ideas = useMemo(() => {
+    const byId = new Map(INITIAL_IDEAS.map((i) => [i.id, i]))
+    const known = saved.items.flatMap((s) => {
+      const base = byId.get(s.id)
+      return base ? [{ ...base, impact: s.impact, effort: s.effort }] : []
+    })
+    const added = INITIAL_IDEAS.filter(
+      (i) => !saved.items.some((s) => s.id === i.id),
+    )
+    return [...known, ...added]
+  }, [saved.items])
+  const autoSort = saved.autoSort
+  const setAutoSort = (next: boolean) =>
+    update((w) => ({ ...w, ideas: { ...w.ideas, autoSort: next } }))
+  const setIdeas = (list: Idea[]) =>
+    update((w) => ({
+      ...w,
+      ideas: {
+        ...w.ideas,
+        items: list.map(({ id, impact, effort }) => ({ id, impact, effort })),
+      },
+    }))
   const [dragId, setDragId] = useState<string | null>(null)
   const [overId, setOverId] = useState<string | null>(null)
   // Only the card header arms dragging, so the sliders stay usable.
@@ -104,7 +127,7 @@ export function IdeaPrioritizer() {
   )
 
   const setScore = (id: string, key: 'impact' | 'effort', v: number) =>
-    setIdeas((prev) => prev.map((i) => (i.id === id ? { ...i, [key]: v } : i)))
+    setIdeas(ideas.map((i) => (i.id === id ? { ...i, [key]: v } : i)))
 
   // Any manual reorder freezes the current order and disables auto-sort.
   const move = (fromId: string, toIndex: number) => {

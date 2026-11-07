@@ -15,8 +15,8 @@ function Home() {
       <SiteHeader />
       <main>
         <Hero />
-        <BlogSection />
         <ToolsSection />
+        <BlogSection />
       </main>
       <SiteFooter />
     </div>

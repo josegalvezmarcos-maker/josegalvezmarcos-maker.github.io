@@ -4,8 +4,18 @@
 import type { Localized } from '@/lib/i18n'
 
 export const BLOG_URL = 'https://jagalvezmarcos.blogspot.com'
+export const REPO_URL =
+  'https://github.com/josegalvezmarcos-maker/josegalvezmarcos-maker.github.io'
 export const LINKEDIN_URL =
   'https://www.linkedin.com/in/jose-antonio-galvez-marcos-10a566431/'
+
+export const TOOL_ROUTES = {
+  checklist: '/app/relevo',
+  'ia-casos': '/app/ia',
+  priorizador: '/app/ideas',
+  capacidad: '/app/turno',
+  'mapa-sectores': '/app/sectores',
+} as const
 
 export type ToolId =
   'checklist' | 'ia-casos' | 'priorizador' | 'capacidad' | 'mapa-sectores'

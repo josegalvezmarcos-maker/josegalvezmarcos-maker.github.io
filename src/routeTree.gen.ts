@@ -10,33 +10,168 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppBlogRouteImport } from './routes/app.blog'
+import { Route as AppCortesRouteImport } from './routes/app.cortes'
+import { Route as AppIaRouteImport } from './routes/app.ia'
+import { Route as AppIdeasRouteImport } from './routes/app.ideas'
+import { Route as AppRelevoRouteImport } from './routes/app.relevo'
+import { Route as AppRutasRouteImport } from './routes/app.rutas'
+import { Route as AppSectoresRouteImport } from './routes/app.sectores'
+import { Route as AppSlottingRouteImport } from './routes/app.slotting'
+import { Route as AppTurnoRouteImport } from './routes/app.turno'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBlogRoute = AppBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCortesRoute = AppCortesRouteImport.update({
+  id: '/cortes',
+  path: '/cortes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppIaRoute = AppIaRouteImport.update({
+  id: '/ia',
+  path: '/ia',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppIdeasRoute = AppIdeasRouteImport.update({
+  id: '/ideas',
+  path: '/ideas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRelevoRoute = AppRelevoRouteImport.update({
+  id: '/relevo',
+  path: '/relevo',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRutasRoute = AppRutasRouteImport.update({
+  id: '/rutas',
+  path: '/rutas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSectoresRoute = AppSectoresRouteImport.update({
+  id: '/sectores',
+  path: '/sectores',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSlottingRoute = AppSlottingRouteImport.update({
+  id: '/slotting',
+  path: '/slotting',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTurnoRoute = AppTurnoRouteImport.update({
+  id: '/turno',
+  path: '/turno',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/blog': typeof AppBlogRoute
+  '/app/cortes': typeof AppCortesRoute
+  '/app/ia': typeof AppIaRoute
+  '/app/ideas': typeof AppIdeasRoute
+  '/app/relevo': typeof AppRelevoRoute
+  '/app/rutas': typeof AppRutasRoute
+  '/app/sectores': typeof AppSectoresRoute
+  '/app/slotting': typeof AppSlottingRoute
+  '/app/turno': typeof AppTurnoRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/blog': typeof AppBlogRoute
+  '/app/cortes': typeof AppCortesRoute
+  '/app/ia': typeof AppIaRoute
+  '/app/ideas': typeof AppIdeasRoute
+  '/app/relevo': typeof AppRelevoRoute
+  '/app/rutas': typeof AppRutasRoute
+  '/app/sectores': typeof AppSectoresRoute
+  '/app/slotting': typeof AppSlottingRoute
+  '/app/turno': typeof AppTurnoRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/blog': typeof AppBlogRoute
+  '/app/cortes': typeof AppCortesRoute
+  '/app/ia': typeof AppIaRoute
+  '/app/ideas': typeof AppIdeasRoute
+  '/app/relevo': typeof AppRelevoRoute
+  '/app/rutas': typeof AppRutasRoute
+  '/app/sectores': typeof AppSectoresRoute
+  '/app/slotting': typeof AppSlottingRoute
+  '/app/turno': typeof AppTurnoRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/blog'
+    | '/app/cortes'
+    | '/app/ia'
+    | '/app/ideas'
+    | '/app/relevo'
+    | '/app/rutas'
+    | '/app/sectores'
+    | '/app/slotting'
+    | '/app/turno'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app/blog'
+    | '/app/cortes'
+    | '/app/ia'
+    | '/app/ideas'
+    | '/app/relevo'
+    | '/app/rutas'
+    | '/app/sectores'
+    | '/app/slotting'
+    | '/app/turno'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/blog'
+    | '/app/cortes'
+    | '/app/ia'
+    | '/app/ideas'
+    | '/app/relevo'
+    | '/app/rutas'
+    | '/app/sectores'
+    | '/app/slotting'
+    | '/app/turno'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +183,117 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/blog': {
+      id: '/app/blog'
+      path: '/blog'
+      fullPath: '/app/blog'
+      preLoaderRoute: typeof AppBlogRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cortes': {
+      id: '/app/cortes'
+      path: '/cortes'
+      fullPath: '/app/cortes'
+      preLoaderRoute: typeof AppCortesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/ia': {
+      id: '/app/ia'
+      path: '/ia'
+      fullPath: '/app/ia'
+      preLoaderRoute: typeof AppIaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/ideas': {
+      id: '/app/ideas'
+      path: '/ideas'
+      fullPath: '/app/ideas'
+      preLoaderRoute: typeof AppIdeasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/relevo': {
+      id: '/app/relevo'
+      path: '/relevo'
+      fullPath: '/app/relevo'
+      preLoaderRoute: typeof AppRelevoRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/rutas': {
+      id: '/app/rutas'
+      path: '/rutas'
+      fullPath: '/app/rutas'
+      preLoaderRoute: typeof AppRutasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/sectores': {
+      id: '/app/sectores'
+      path: '/sectores'
+      fullPath: '/app/sectores'
+      preLoaderRoute: typeof AppSectoresRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/slotting': {
+      id: '/app/slotting'
+      path: '/slotting'
+      fullPath: '/app/slotting'
+      preLoaderRoute: typeof AppSlottingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/turno': {
+      id: '/app/turno'
+      path: '/turno'
+      fullPath: '/app/turno'
+      preLoaderRoute: typeof AppTurnoRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppBlogRoute: typeof AppBlogRoute
+  AppCortesRoute: typeof AppCortesRoute
+  AppIaRoute: typeof AppIaRoute
+  AppIdeasRoute: typeof AppIdeasRoute
+  AppRelevoRoute: typeof AppRelevoRoute
+  AppRutasRoute: typeof AppRutasRoute
+  AppSectoresRoute: typeof AppSectoresRoute
+  AppSlottingRoute: typeof AppSlottingRoute
+  AppTurnoRoute: typeof AppTurnoRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppBlogRoute: AppBlogRoute,
+  AppCortesRoute: AppCortesRoute,
+  AppIaRoute: AppIaRoute,
+  AppIdeasRoute: AppIdeasRoute,
+  AppRelevoRoute: AppRelevoRoute,
+  AppRutasRoute: AppRutasRoute,
+  AppSectoresRoute: AppSectoresRoute,
+  AppSlottingRoute: AppSlottingRoute,
+  AppTurnoRoute: AppTurnoRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

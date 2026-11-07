@@ -4,13 +4,17 @@ This document describes the project for developers and AI agents working on this
 
 ## Project Overview
 
-**Operaciones a pie de campo** — a Spanish-language, single-page personal site for José Antonio Gálvez Marcos (Team Leader de Pick, logistics/operations/quality). It has a hero, five cards linking to his Blogspot articles, five client-side interactive tools (one per article), and a footer.
+**Operaciones a pie de campo** — bilingual (ES/EN) site and free warehouse-operations workspace by José Antonio Gálvez Marcos (Team Leader de Pick). `/` is the landing page (hero with a live route demo, tool cards, blog cards). `/app/*` is a full-screen workspace: shift plan, pick routes, cutoffs, start & handover, ABC slotting, idea prioritizer, AI cases, sector map and an embedded blog reader.
 
-There is no backend, database or API: everything runs in the browser. The only persistence is `localStorage`: the shift checklist state (key `apc-checklist`, read inside `useEffect`) and the chosen language (key `apc-lang`).
+There is no backend, database or API: everything runs in the browser.
+
+- Planning logic lives in `src/lib/algorithms.ts` (pure functions, tested in `algorithms.test.ts`): zone load and minimax staff rebalancing, hourly pace projection, aisle-layout distances with S-shape vs nearest-neighbour + 2-opt routing (seeded with S-shape so it never loses to it), ABC slotting, and EDD cutoff scheduling with the minimum feasible rate.
+- Workspace data is one versioned, zod-validated object in `localStorage` (`apc-workspace`, `src/lib/workspace.ts`) read through `useSyncExternalStore` (server snapshot = demo data). Users can download/load a JSON backup, and share one tool's data in the URL hash (`#d=<tool>.<base64url>`), which is validated and only applied after the user confirms. Unreadable saved data is kept under `apc-workspace-unreadable`. Any schema change needs a new `version` and a migration.
+- Feedback opens a prefilled public GitHub issue on the site repository; there is no form backend.
 
 ### Page structure
 
-- `src/routes/index.tsx` composes the page: `SiteHeader` → `Hero` → `BlogSection` → `ToolsSection` → `SiteFooter`.
+- `src/routes/index.tsx` composes the landing page: `SiteHeader` → `Hero` → `ToolsSection` → `BlogSection` → `SiteFooter`. `src/routes/app.tsx` wraps every `/app/*` route in `AppShell` (`src/components/app/`). Tool routes are listed in `NAV` (`src/components/app/nav.ts`) and must also be added to `pages` in `vite.config.ts` so they are prerendered.
 - `src/data/content.ts` holds **all copy and data** (blog posts with URLs, checklist items, AI use cases, ideas, sectors, external links). Edit content there, not in components.
 - Each blog post has a `toolId`; that id is the anchor of its tool (`#checklist`, `#ia-casos`, `#priorizador`, `#capacidad`, `#mapa-sectores`) and the key in the `TOOLS` map in `src/components/site/tools-section.tsx`.
 - `src/components/site/` — layout sections. `src/components/tools/` — the five tools plus `ToolShell` (shared card header with link to the article).
@@ -19,23 +23,22 @@ There is no backend, database or API: everything runs in the browser. The only p
 
 - The site is dark-only: `<html class="dark">` and `:root, .dark` share one navy palette (`#0f172a` background, `#3b82f6` primary) in `src/styles.css`. Extra tokens: `--success`, `--warning` (→ `bg-success`, `text-warning`), and `font-data` (JetBrains Mono for numbers). Headings use Sora, body IBM Plex Sans (Google Fonts, linked in `__root.tsx`).
 - Idea prioritizer: scores 1–2 are "low", 3–5 "high". `axisPos()` maps scores so matrix dots never sit on the midline. Manual reorder (drag or arrow buttons) disables auto-sort. Dragging is only armed from the card header so the range sliders keep working.
-- Capacity calculator: theoretical = workers × hours × rate; effective = present workers × (hours − break) × rate × (1 − margin); recommended target = effective rounded down to 50. Added a "volumen previsto" input so the overload alert has something to compare against (>100% overloaded, ≥90% at limit).
 - LinkedIn icon is an inline SVG (`linkedin-icon.tsx`) because lucide no longer ships brand icons.
 - The site is bilingual (ES default / EN). `LanguageProvider` in `src/lib/i18n.tsx` (mounted in `__root.tsx`) stores the choice in `localStorage` (`apc-lang`) via `useSyncExternalStore`; the server always renders Spanish. Data strings in `content.ts` are `{ es, en }` objects read with `useLanguage().tr(...)`; interface copy lives in `src/data/ui-strings.ts` (`useStrings()`). Any new text needs both languages. Blog URLs stay Spanish. The ES/EN toggle sits at the right end of the sticky header.
 
 ### Tech Stack
 
-| Layer         | Technology                                          |
-| ------------- | --------------------------------------------------- |
-| Framework     | TanStack Start                                      |
-| Frontend      | React 19, TanStack Router                           |
-| Build         | Vite 8                                              |
-| Styling       | Tailwind CSS 4, theme variables in `src/styles.css` |
-| UI Components | shadcn/ui (Radix UI + Tailwind)                     |
-| Toasts        | sonner                                              |
-| Icons         | lucide-react                                        |
-| Language      | TypeScript 6.0 (strict mode)                        |
-| Deployment    | Netlify, via `@netlify/vite-plugin-tanstack-start`  |
+| Layer         | Technology                                                      |
+| ------------- | --------------------------------------------------------------- |
+| Framework     | TanStack Start                                                  |
+| Frontend      | React 19, TanStack Router                                       |
+| Build         | Vite 8                                                          |
+| Styling       | Tailwind CSS 4, theme variables in `src/styles.css`             |
+| UI Components | shadcn/ui (Radix UI + Tailwind)                                 |
+| Toasts        | sonner                                                          |
+| Icons         | lucide-react                                                    |
+| Language      | TypeScript 6.0 (strict mode)                                    |
+| Deployment    | GitHub Pages, static prerender (`.github/workflows/deploy.yml`) |
 
 ## Directory Structure
 
@@ -125,11 +128,10 @@ Pages are rendered on the server first, where `window` and `localStorage` don't 
 
 ## Configuration Files
 
-| File             | Purpose                                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------------------ |
-| `vite.config.ts` | Vite path aliases and Tailwind, Netlify, TanStack Start, React plugins                           |
-| `tsconfig.json`  | Strict TypeScript, with the `@/*` alias for `src/*`                                              |
-| `netlify.toml`   | Builds with `vite build`, publishes `dist/client`, dev server on port 8888 proxying Vite on 3000 |
+| File             | Purpose                                                                |
+| ---------------- | ---------------------------------------------------------------------- |
+| `vite.config.ts` | Vite path aliases and Tailwind, Netlify, TanStack Start, React plugins |
+| `tsconfig.json`  | Strict TypeScript, with the `@/*` alias for `src/*`                    |
 
 ## Development Commands
 
@@ -161,4 +163,3 @@ Set the product's name and description in `src/routes/__root.tsx`:
 
 - `siteName` is the page title and the title shown when the link is shared.
 - `siteDescription` is the meta description and the description shown when the link is shared.
-

@@ -9,7 +9,7 @@ import '../styles.css'
 
 const siteName = 'Operaciones a pie de campo · José Antonio Gálvez Marcos'
 const siteDescription =
-  'Liderazgo de equipos de pick, logística, calidad e IA aplicada: artículos y herramientas interactivas de José Antonio Gálvez Marcos.'
+  'Herramientas gratuitas para operaciones de almacén: plan de turno, rutas de picking, slotting ABC, cortes y relevo. Por José Antonio Gálvez Marcos.'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -47,6 +47,7 @@ export const Route = createRootRoute({
       { name: 'theme-color', content: '#0f172a' },
     ],
     links: [
+      { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       {
         rel: 'preconnect',
