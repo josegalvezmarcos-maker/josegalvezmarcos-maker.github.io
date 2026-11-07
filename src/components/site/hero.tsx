@@ -146,8 +146,8 @@ export function Hero() {
             style={{ animationDelay: '360ms' }}
           >
             {tr({
-              es: 'Dirijo un equipo de pick. Aquí cuento lo que aprendo en planta y comparto las herramientas que me habría gustado tener al empezar cada turno.',
-              en: 'I lead a pick team. Here I share what I learn on the floor and the tools I wish I had at the start of every shift.',
+              es: 'Más de 15 años en logística, distribución e inventarios. Hoy dirijo un equipo de pick. Aquí comparto cómo trabajo, con herramientas que puedes usar en tu propia operación.',
+              en: '15+ years in logistics, distribution and inventory. Today I lead a pick team. Here I show how I work, with tools you can use in your own operation.',
             })}
           </p>
           <div

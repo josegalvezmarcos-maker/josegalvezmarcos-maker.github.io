@@ -1,5 +1,7 @@
 import {
   BookOpen,
+  ChartColumn,
+  MapPinned,
   ClipboardList,
   Compass,
   Gauge,
@@ -16,6 +18,8 @@ import type { Localized } from '@/lib/i18n'
 export interface NavItem {
   to:
     | '/app'
+    | '/app/casos'
+    | '/app/kpis'
     | '/app/turno'
     | '/app/rutas'
     | '/app/slotting'
@@ -28,10 +32,30 @@ export interface NavItem {
   icon: LucideIcon
   label: Localized
   blurb: Localized
-  group: 'plan' | 'improve' | 'learn'
+  group: 'north' | 'plan' | 'improve' | 'learn'
 }
 
 export const NAV: NavItem[] = [
+  {
+    to: '/app/casos',
+    icon: MapPinned,
+    group: 'north',
+    label: { es: 'Casos del norte', en: 'Northern cases' },
+    blurb: {
+      es: 'Frío, e-commerce, supermercados, automoción y multicliente: escenarios jugables.',
+      en: 'Cold chain, e-commerce, supermarkets, automotive and multi-client: playable scenarios.',
+    },
+  },
+  {
+    to: '/app/kpis',
+    icon: ChartColumn,
+    group: 'north',
+    label: { es: 'Tablero de KPIs', en: 'KPI board' },
+    blurb: {
+      es: 'Los indicadores de cada tipo de operación, con fórmula, objetivo y tendencia.',
+      en: 'Each operation type’s indicators, with formula, target and trend.',
+    },
+  },
   {
     to: '/app/turno',
     icon: Gauge,
@@ -131,6 +155,7 @@ export const HOME_ITEM = {
 }
 
 export const GROUP_LABELS: Record<NavItem['group'], Localized> = {
+  north: { es: 'Norte de España', en: 'Northern Spain' },
   plan: { es: 'Operar el turno', en: 'Run the shift' },
   improve: { es: 'Mejorar', en: 'Improve' },
   learn: { es: 'Aprender', en: 'Learn' },

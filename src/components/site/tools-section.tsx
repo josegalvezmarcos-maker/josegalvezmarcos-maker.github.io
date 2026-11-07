@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 export function ToolsSection() {
   const { tr } = useLanguage()
-  const tools = NAV.filter((n) => n.group !== 'learn')
+  const tools = NAV.filter((n) => n.group === 'plan' || n.group === 'improve')
 
   return (
     <section
@@ -17,13 +17,13 @@ export function ToolsSection() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="font-data text-xs tracking-widest text-primary uppercase">
-              A03 · {tr({ es: 'Herramientas', en: 'Tools' })}
+              A04 · {tr({ es: 'Herramientas', en: 'Tools' })}
             </p>
             <h2 className="signage mt-5 text-4xl sm:text-6xl">
-              {tr({ es: 'Seis puestos', en: 'Six stations' })}
+              {tr({ es: 'Puestos', en: 'Work' })}
               <br />
               <span className="outline-text">
-                {tr({ es: 'de trabajo', en: 'to work at' })}
+                {tr({ es: 'de trabajo', en: 'stations' })}
               </span>
             </h2>
           </div>

@@ -48,7 +48,7 @@ export function Dashboard() {
     (i) => !i.done,
   ).length
   const checks = workspace.handover.checks.length
-  const groups: NavItem['group'][] = ['plan', 'improve', 'learn']
+  const groups: NavItem['group'][] = ['north', 'plan', 'improve', 'learn']
 
   return (
     <>

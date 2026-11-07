@@ -13,9 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppBlogRouteImport } from './routes/app.blog'
+import { Route as AppCasosRouteImport } from './routes/app.casos'
 import { Route as AppCortesRouteImport } from './routes/app.cortes'
 import { Route as AppIaRouteImport } from './routes/app.ia'
 import { Route as AppIdeasRouteImport } from './routes/app.ideas'
+import { Route as AppKpisRouteImport } from './routes/app.kpis'
 import { Route as AppRelevoRouteImport } from './routes/app.relevo'
 import { Route as AppRutasRouteImport } from './routes/app.rutas'
 import { Route as AppSectoresRouteImport } from './routes/app.sectores'
@@ -42,6 +44,11 @@ const AppBlogRoute = AppBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCasosRoute = AppCasosRouteImport.update({
+  id: '/casos',
+  path: '/casos',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCortesRoute = AppCortesRouteImport.update({
   id: '/cortes',
   path: '/cortes',
@@ -55,6 +62,11 @@ const AppIaRoute = AppIaRouteImport.update({
 const AppIdeasRoute = AppIdeasRouteImport.update({
   id: '/ideas',
   path: '/ideas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppKpisRoute = AppKpisRouteImport.update({
+  id: '/kpis',
+  path: '/kpis',
   getParentRoute: () => AppRoute,
 } as any)
 const AppRelevoRoute = AppRelevoRouteImport.update({
@@ -87,9 +99,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/blog': typeof AppBlogRoute
+  '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
   '/app/ia': typeof AppIaRoute
   '/app/ideas': typeof AppIdeasRoute
+  '/app/kpis': typeof AppKpisRoute
   '/app/relevo': typeof AppRelevoRoute
   '/app/rutas': typeof AppRutasRoute
   '/app/sectores': typeof AppSectoresRoute
@@ -100,9 +114,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/blog': typeof AppBlogRoute
+  '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
   '/app/ia': typeof AppIaRoute
   '/app/ideas': typeof AppIdeasRoute
+  '/app/kpis': typeof AppKpisRoute
   '/app/relevo': typeof AppRelevoRoute
   '/app/rutas': typeof AppRutasRoute
   '/app/sectores': typeof AppSectoresRoute
@@ -115,9 +131,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/blog': typeof AppBlogRoute
+  '/app/casos': typeof AppCasosRoute
   '/app/cortes': typeof AppCortesRoute
   '/app/ia': typeof AppIaRoute
   '/app/ideas': typeof AppIdeasRoute
+  '/app/kpis': typeof AppKpisRoute
   '/app/relevo': typeof AppRelevoRoute
   '/app/rutas': typeof AppRutasRoute
   '/app/sectores': typeof AppSectoresRoute
@@ -131,9 +149,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/blog'
+    | '/app/casos'
     | '/app/cortes'
     | '/app/ia'
     | '/app/ideas'
+    | '/app/kpis'
     | '/app/relevo'
     | '/app/rutas'
     | '/app/sectores'
@@ -144,9 +164,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app/blog'
+    | '/app/casos'
     | '/app/cortes'
     | '/app/ia'
     | '/app/ideas'
+    | '/app/kpis'
     | '/app/relevo'
     | '/app/rutas'
     | '/app/sectores'
@@ -158,9 +180,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/blog'
+    | '/app/casos'
     | '/app/cortes'
     | '/app/ia'
     | '/app/ideas'
+    | '/app/kpis'
     | '/app/relevo'
     | '/app/rutas'
     | '/app/sectores'
@@ -204,6 +228,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBlogRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/casos': {
+      id: '/app/casos'
+      path: '/casos'
+      fullPath: '/app/casos'
+      preLoaderRoute: typeof AppCasosRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/cortes': {
       id: '/app/cortes'
       path: '/cortes'
@@ -223,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/ideas'
       fullPath: '/app/ideas'
       preLoaderRoute: typeof AppIdeasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/kpis': {
+      id: '/app/kpis'
+      path: '/kpis'
+      fullPath: '/app/kpis'
+      preLoaderRoute: typeof AppKpisRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/relevo': {
@@ -265,9 +303,11 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppBlogRoute: typeof AppBlogRoute
+  AppCasosRoute: typeof AppCasosRoute
   AppCortesRoute: typeof AppCortesRoute
   AppIaRoute: typeof AppIaRoute
   AppIdeasRoute: typeof AppIdeasRoute
+  AppKpisRoute: typeof AppKpisRoute
   AppRelevoRoute: typeof AppRelevoRoute
   AppRutasRoute: typeof AppRutasRoute
   AppSectoresRoute: typeof AppSectoresRoute
@@ -278,9 +318,11 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppBlogRoute: AppBlogRoute,
+  AppCasosRoute: AppCasosRoute,
   AppCortesRoute: AppCortesRoute,
   AppIaRoute: AppIaRoute,
   AppIdeasRoute: AppIdeasRoute,
+  AppKpisRoute: AppKpisRoute,
   AppRelevoRoute: AppRelevoRoute,
   AppRutasRoute: AppRutasRoute,
   AppSectoresRoute: AppSectoresRoute,

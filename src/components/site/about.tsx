@@ -3,51 +3,64 @@ import type { Localized } from '@/lib/i18n'
 import { useLanguage } from '@/lib/i18n'
 
 interface Stop {
-  code: string
+  years: string
   title: Localized
+  where: Localized
   detail: Localized
   current?: boolean
 }
 
+// Taken from his own LinkedIn profile; employers are described, not named.
 const PATH: Stop[] = [
   {
-    code: '01',
-    title: { es: 'Laboratorio', en: 'Laboratory' },
+    years: '2013–2017',
+    title: {
+      es: 'Encargado comercial y coordinador de inventarios',
+      en: 'Commercial lead and inventory coordinator',
+    },
+    where: {
+      es: 'Empresa de servicios de inventario · grandes superficies de Asturias',
+      en: 'Inventory services company · large Asturian retailers',
+    },
     detail: {
-      es: 'Procedimientos, trazabilidad y la costumbre de medir antes de opinar.',
-      en: 'Procedures, traceability and the habit of measuring before giving an opinion.',
+      es: 'Equipos de inventario en moda y alimentación, y responsable regional de reposición y campañas de un fabricante de snacks.',
+      en: 'Inventory teams in fashion and grocery, and regional lead for a snack maker’s replenishment and campaigns.',
     },
   },
   {
-    code: '02',
-    title: { es: 'Inventarios', en: 'Inventories' },
+    years: '2018–2019',
+    title: {
+      es: 'Responsable comercial y de procesos',
+      en: 'Commercial and process lead',
+    },
+    where: { es: 'Tostadora de café', en: 'Coffee roaster' },
     detail: {
-      es: 'Recuentos, descuadres y por qué el stock del sistema y el de la estantería no siempre coinciden.',
-      en: 'Counts, discrepancies and why system stock and shelf stock do not always match.',
+      es: 'Rediseño del layout productivo, estándares de calidad y trazabilidad, y reordenación de rutas comerciales.',
+      en: 'Production layout redesign, quality and traceability standards, and commercial route reorganisation.',
     },
   },
   {
-    code: '03',
-    title: { es: 'Distribución alimentaria', en: 'Food distribution' },
+    years: '2019–2024',
+    title: {
+      es: 'Encargado general de logística, tienda y e-commerce',
+      en: 'Head of logistics, shop and e-commerce',
+    },
+    where: { es: 'Distribuidora cárnica', en: 'Meat distributor' },
     detail: {
-      es: 'Fechas, frío y rutas: cuando el reloj manda sobre todo lo demás.',
-      en: 'Dates, cold chain and routes: when the clock overrides everything else.',
+      es: 'Equipo de 15 personas. Trazabilidad y etiquetado nuevos (−40 % de errores logísticos), recepción y preparación rediseñadas (−30 % en tiempo de entrega) y apertura de una ruta comercial en León.',
+      en: 'Team of 15. New traceability and labelling (−40% logistics errors), redesigned receiving and picking (−30% delivery time) and a new sales route in León.',
     },
   },
   {
-    code: '04',
-    title: { es: 'Sector café', en: 'Coffee sector' },
-    detail: {
-      es: 'Producto, cliente y la cadena completa vista desde otro ángulo.',
-      en: 'Product, customer and the whole chain seen from another angle.',
-    },
-  },
-  {
-    code: '05',
+    years: '2024–',
     title: { es: 'Team Leader de Pick', en: 'Pick Team Leader' },
+    where: {
+      es: 'Centro logístico robotizado de alto volumen',
+      en: 'High-volume robotic fulfilment centre',
+    },
     detail: {
-      es: 'Desde 2024 dirijo un equipo de preparación de pedidos. Personas, ritmo y calidad en el mismo turno.',
-      en: 'Since 2024 I have led an order-picking team. People, pace and quality in the same shift.',
+      es: 'Organización del turno por volumen y horas de salida, ritmo y calidad de escaneo, seguridad, formación de incorporaciones y refuerzo en campañas.',
+      en: 'Shift organisation by volume and departure times, pace and scan quality, safety, onboarding and peak-season support.',
     },
     current: true,
   },
@@ -66,16 +79,16 @@ export function About() {
             A01 · {tr({ es: 'Quién soy', en: 'About me' })}
           </p>
           <h2 className="signage mt-5 text-5xl sm:text-6xl">
-            {tr({ es: 'De la bata', en: 'From lab coat' })}
+            {tr({ es: '+15 años', en: '15+ years' })}
             <br />
             <span className="outline-text">
-              {tr({ es: 'al chaleco', en: 'to hi-vis' })}
+              {tr({ es: 'en planta', en: 'on the floor' })}
             </span>
           </h2>
           <p className="mt-6 max-w-reading text-lg leading-relaxed text-muted-foreground">
             {tr({
-              es: 'Mi recorrido ha pasado por el laboratorio, los inventarios, la distribución alimentaria y el café antes de llegar al pick. En todos aparece la misma pregunta: cómo conseguir que lo correcto llegue a su sitio, a tiempo y sin errores, sin desgastar a quien lo hace.',
-              en: 'My path went through the lab, inventories, food distribution and coffee before reaching pick. The same question shows up in all of them: how to get the right thing to the right place, on time and without errors, without wearing down the people who do it.',
+              es: 'Líder de operaciones en logística, distribución e inventarios, en textil, alimentación, industria y e-commerce. Coordino y formo equipos, mejoro procesos y monto sistemas de calidad y trazabilidad. Mi liderazgo es cercano, formador y orientado al rendimiento.',
+              en: 'Operations leader in logistics, distribution and inventory, across fashion, food, industry and e-commerce. I coordinate and train teams, improve processes and build quality and traceability systems. My leadership is close, coaching and performance-driven.',
             })}
           </p>
           <div className="mt-8 inline-flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3">
@@ -83,8 +96,8 @@ export function About() {
             <div>
               <p className="text-sm font-medium">
                 {tr({
-                  es: 'Máster en Gestión de la Calidad',
-                  en: 'Master in Quality Management',
+                  es: 'Máster en Gestión de la Calidad · formación en Biología',
+                  en: 'Master in Quality Management · background in Biology',
                 })}
               </p>
               <p className="text-xs text-muted-foreground">
@@ -94,17 +107,17 @@ export function About() {
           </div>
         </div>
 
-        <ol className="relative space-y-4 before:absolute before:top-3 before:bottom-3 before:left-[23px] before:w-px before:bg-border">
+        <ol className="relative space-y-4 before:absolute before:top-3 before:bottom-3 before:left-[39px] before:w-px before:bg-border">
           {PATH.map((stop) => (
-            <li key={stop.code} className="relative flex gap-5">
+            <li key={stop.years} className="relative flex gap-5">
               <span
                 className={
                   stop.current
-                    ? 'relative z-10 grid size-12 shrink-0 place-items-center rounded-md bg-primary font-data text-sm font-bold text-primary-foreground'
-                    : 'relative z-10 grid size-12 shrink-0 place-items-center rounded-md border border-border bg-background font-data text-sm text-muted-foreground'
+                    ? 'relative z-10 grid h-12 w-20 shrink-0 place-items-center rounded-md bg-primary font-data text-xs font-bold text-primary-foreground'
+                    : 'relative z-10 grid h-12 w-20 shrink-0 place-items-center rounded-md border border-border bg-background font-data text-xs text-muted-foreground'
                 }
               >
-                {stop.code}
+                {stop.years}
               </span>
               <div
                 className={
@@ -116,7 +129,10 @@ export function About() {
                 <h3 className="font-display text-lg font-bold">
                   {tr(stop.title)}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-0.5 font-data text-[11px] tracking-wide text-primary uppercase">
+                  {tr(stop.where)}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {tr(stop.detail)}
                 </p>
               </div>

@@ -39,13 +39,13 @@ export function SiteHeader() {
 
           <nav
             aria-label={tr({ es: 'Secciones', en: 'Sections' })}
-            className="hidden items-center gap-1 lg:flex"
+            className="hidden items-center gap-0.5 xl:flex"
           >
             {SECTIONS.map((s) => (
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="group flex items-baseline gap-1.5 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+                className="group flex items-baseline gap-1.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
               >
                 <span className="font-data text-[10px] text-primary/70 group-hover:text-primary">
                   {s.code}
@@ -72,7 +72,7 @@ export function SiteHeader() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="lg:hidden"
+                  className="xl:hidden"
                   aria-label={tr({ es: 'Abrir menú', en: 'Open menu' })}
                 >
                   <Menu />

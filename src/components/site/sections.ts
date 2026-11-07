@@ -11,9 +11,19 @@ export const SECTIONS: Section[] = [
   { id: 'quien', code: 'A01', label: { es: 'Quién soy', en: 'About me' } },
   { id: 'por-que', code: 'A02', label: { es: 'Por qué', en: 'Why' } },
   {
-    id: 'herramientas',
+    id: 'norte',
     code: 'A03',
+    label: { es: 'Casos del norte', en: 'Northern cases' },
+  },
+  {
+    id: 'herramientas',
+    code: 'A04',
     label: { es: 'Herramientas', en: 'Tools' },
   },
-  { id: 'blog', code: 'A04', label: { es: 'Blog', en: 'Blog' } },
+  {
+    id: 'aporto',
+    code: 'A05',
+    label: { es: 'Lo que aporto', en: 'What I bring' },
+  },
+  { id: 'blog', code: 'A06', label: { es: 'Blog', en: 'Blog' } },
 ]

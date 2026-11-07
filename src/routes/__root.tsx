@@ -8,9 +8,9 @@ import { LanguageProvider } from '@/lib/i18n'
 import '../styles.css'
 
 const SITE_URL = 'https://josegalvezmarcos-maker.github.io'
-const siteName ='Operaciones a pie de campo · José Antonio Gálvez Marcos'
+const siteName = 'Operaciones a pie de campo · José Antonio Gálvez Marcos'
 const siteDescription =
-  'Herramientas gratuitas para operaciones de almacén: plan de turno, rutas de picking, slotting ABC, cortes y relevo. Por José Antonio Gálvez Marcos.'
+  'José Antonio Gálvez Marcos, líder de operaciones logísticas en Asturias: casos del norte, tablero de KPIs y herramientas gratuitas de plan de turno, rutas, cortes y slotting.'
 
 export const Route = createRootRoute({
   head: () => ({

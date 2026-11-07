@@ -2,6 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { About } from '@/components/site/about'
 import { BlogSection } from '@/components/site/blog-section'
 import { Hero } from '@/components/site/hero'
+import { Impact } from '@/components/site/impact'
+import { NorthSection } from '@/components/site/north-section'
 import { ScrollRail } from '@/components/site/scroll-rail'
 import { SiteFooter } from '@/components/site/site-footer'
 import { SiteHeader } from '@/components/site/site-header'
@@ -21,7 +23,9 @@ function Home() {
         <Hero />
         <About />
         <Why />
+        <NorthSection />
         <ToolsSection />
+        <Impact />
         <BlogSection />
       </main>
       <SiteFooter />

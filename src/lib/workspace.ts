@@ -1,5 +1,6 @@
 import { useCallback, useSyncExternalStore } from 'react'
 import { z } from 'zod'
+import { sectorById, type SectorId } from '@/data/sectors'
 
 const STORAGE_KEY = 'apc-workspace'
 export const MAX_SHARE_LENGTH = 30000
@@ -91,7 +92,17 @@ const ideasSchema = z.object({
     .max(40),
 })
 
-const workspaceSchema = z.object({
+const kpisSchema = z.object({
+  sector: z.enum(['frio', 'ecom', 'retail', 'jis', 'tpl']),
+  weeks: z.number().int().min(4).max(26),
+  values: z.record(
+    z.string().max(40),
+    z.array(z.number().min(-1e9).max(1e9).nullable()).max(26),
+  ),
+  targets: z.record(z.string().max(40), z.number().min(-1e9).max(1e9)),
+})
+
+const workspaceV1Schema = z.object({
   version: z.literal(1),
   shift: shiftSchema,
   route: routeSchema,
@@ -101,14 +112,20 @@ const workspaceSchema = z.object({
   ideas: ideasSchema,
 })
 
+const workspaceSchema = workspaceV1Schema.extend({
+  version: z.literal(2),
+  kpis: kpisSchema,
+})
+
 export type Workspace = z.infer<typeof workspaceSchema>
-export type ShareableTool = 'shift' | 'route' | 'slotting' | 'cutoffs'
+export type ShareableTool = 'shift' | 'route' | 'slotting' | 'cutoffs' | 'kpis'
 
 const shareSchemas = {
   shift: shiftSchema,
   route: routeSchema,
   slotting: slottingSchema,
   cutoffs: cutoffsSchema,
+  kpis: kpisSchema,
 } as const
 
 function demoCsv(): string {
@@ -151,8 +168,23 @@ function demoCsv(): string {
   return lines.join('\n')
 }
 
+function demoKpis(sector: SectorId): Workspace['kpis'] {
+  const s = sectorById(sector)
+  return {
+    sector,
+    weeks: 8,
+    values: Object.fromEntries(s.kpis.map((k) => [k.id, [...k.demo]])),
+    targets: Object.fromEntries(s.kpis.map((k) => [k.id, k.target])),
+  }
+}
+
+export function kpiPreset(sector: SectorId): Workspace['kpis'] {
+  return demoKpis(sector)
+}
+
 export const DEFAULT_WORKSPACE: Workspace = {
-  version: 1,
+  version: 2,
+  kpis: demoKpis('ecom'),
   shift: {
     hours: 8,
     breakMin: 30,
@@ -212,14 +244,22 @@ const listeners = new Set<() => void>()
 let cache: Workspace | null = null
 let persisted = true
 
+function parseWorkspace(data: unknown): Workspace | null {
+  const current = workspaceSchema.safeParse(data)
+  if (current.success) return current.data
+  const v1 = workspaceV1Schema.safeParse(data)
+  if (v1.success) return { ...v1.data, version: 2, kpis: demoKpis('ecom') }
+  return null
+}
+
 function read(): Workspace {
   if (cache) return cache
   let loaded = DEFAULT_WORKSPACE
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
-      const parsed = workspaceSchema.safeParse(JSON.parse(raw))
-      if (parsed.success) loaded = parsed.data
+      const parsed = parseWorkspace(JSON.parse(raw))
+      if (parsed) loaded = parsed
       else localStorage.setItem(`${STORAGE_KEY}-unreadable`, raw)
     }
   } catch {
@@ -282,9 +322,9 @@ export function exportWorkspace(): string {
 
 export function importWorkspace(json: string): boolean {
   try {
-    const parsed = workspaceSchema.safeParse(JSON.parse(json))
-    if (!parsed.success) return false
-    write(parsed.data)
+    const parsed = parseWorkspace(JSON.parse(json))
+    if (!parsed) return false
+    write(parsed)
     return true
   } catch {
     return false
@@ -314,7 +354,7 @@ export interface SharedPayload {
 }
 
 export function readShareHash(hash: string): SharedPayload | 'invalid' | null {
-  const m = /^#d=(shift|route|slotting|cutoffs)\.([\w-]+)$/.exec(hash)
+  const m = /^#d=(shift|route|slotting|cutoffs|kpis)\.([\w-]+)$/.exec(hash)
   if (!m) return hash.startsWith('#d=') ? 'invalid' : null
   if (hash.length > MAX_SHARE_LENGTH) return 'invalid'
   const tool = m[1] as ShareableTool

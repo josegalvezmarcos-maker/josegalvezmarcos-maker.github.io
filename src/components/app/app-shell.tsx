@@ -62,7 +62,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
         : 'text-muted-foreground hover:bg-accent hover:text-foreground',
     )
 
-  const groups: NavItem['group'][] = ['plan', 'improve', 'learn']
+  const groups: NavItem['group'][] = ['north', 'plan', 'improve', 'learn']
   return (
     <nav className="space-y-5">
       <Link

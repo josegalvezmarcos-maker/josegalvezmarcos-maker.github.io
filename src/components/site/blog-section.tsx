@@ -11,7 +11,7 @@ export function BlogSection() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="font-data text-xs tracking-widest text-primary uppercase">
-              A04 · Blog
+              A06 · Blog
             </p>
             <h2 className="signage mt-5 text-4xl sm:text-6xl">
               {tr({ es: 'Notas de turno', en: 'Shift notes' })}

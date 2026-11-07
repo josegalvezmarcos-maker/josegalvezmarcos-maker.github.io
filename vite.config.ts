@@ -12,6 +12,8 @@ const config = defineConfig({
       pages: [
         { path: '/' },
         ...[
+          'casos',
+          'kpis',
           'turno',
           'rutas',
           'slotting',
