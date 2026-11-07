@@ -7,7 +7,8 @@ import { LanguageProvider } from '@/lib/i18n'
 
 import '../styles.css'
 
-const siteName = 'Operaciones a pie de campo · José Antonio Gálvez Marcos'
+const SITE_URL = 'https://josegalvezmarcos-maker.github.io'
+const siteName ='Operaciones a pie de campo · José Antonio Gálvez Marcos'
 const siteDescription =
   'Herramientas gratuitas para operaciones de almacén: plan de turno, rutas de picking, slotting ABC, cortes y relevo. Por José Antonio Gálvez Marcos.'
 
@@ -40,6 +41,11 @@ export const Route = createRootRoute({
         property: 'og:type',
         content: 'website',
       },
+      { property: 'og:url', content: `${SITE_URL}/` },
+      { property: 'og:image', content: `${SITE_URL}/og.png` },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { name: 'twitter:image', content: `${SITE_URL}/og.png` },
       {
         name: 'twitter:card',
         content: 'summary_large_image',
